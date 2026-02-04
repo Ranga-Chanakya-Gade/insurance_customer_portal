@@ -100,7 +100,7 @@ const Dashboard = () => {
 
   const handleIllustrationRequest = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click
-    const illustrationUrl = 'https://illustrations-ui.dev-1.hub-1.illus-dev.assure.dxc.com/index.html?type=UniversalLifeProducts&id=31fb4f17-ad3d-4f8f-9caa-e6e4f32322b1#/';
+    const illustrationUrl = 'https://illustrations-ui.demo-1.hub-1.illus-dev.assure.dxc.com/index.html?type=UniversalLifeProducts&id=2a7254ac-93c8-45fa-b35e-a7ac079ceeac#/';
     window.open(illustrationUrl, '_blank');
   };
 
