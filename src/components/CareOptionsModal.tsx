@@ -48,24 +48,24 @@ const CareOptionsModal = ({ open, onClose }: CareOptionsModalProps) => {
     {
       id: 'telehealth',
       title: 'Telehealth',
-      description: 'Connect with a healthcare provider remotely through video or phone consultation.',
+      description: 'Connect with healthcare providers via video',
       icon: <VideoCall sx={{ fontSize: 48 }} />,
       color: '#8BC53F',
       route: '/find-care?type=telehealth',
     },
     {
       id: 'emergency',
-      title: 'Emergency Care',
-      description: 'Find the nearest emergency room for urgent medical situations requiring immediate attention.',
+      title: 'Emergency',
+      description: 'Emergency contact numbers',
       icon: <EmergencyIcon sx={{ fontSize: 48 }} />,
       color: '#D02E2E',
-      route: '/emergency-care',
+      route: '/emergency',
     },
   ];
 
-  const handleOptionClick = (route: string) => {
+  const handleOptionClick = (option: CareOption) => {
     onClose();
-    navigate(route);
+    navigate(option.route);
   };
 
   return (
@@ -109,7 +109,7 @@ const CareOptionsModal = ({ open, onClose }: CareOptionsModalProps) => {
                 },
               }}
             >
-              <CardActionArea onClick={() => handleOptionClick(option.route)}>
+              <CardActionArea onClick={() => handleOptionClick(option)}>
                 <CardContent sx={{ p: 3 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Box

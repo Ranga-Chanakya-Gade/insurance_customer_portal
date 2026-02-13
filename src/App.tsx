@@ -27,6 +27,7 @@ import IllustrationDetails from './pages/IllustrationDetails';
 import CoverageCalculatorPage from './pages/CoverageCalculatorPage';
 import FindCare from './pages/FindCare';
 import MyAppointments from './pages/MyAppointments';
+import Emergency from './pages/Emergency';
 import BloomLogo from './components/BloomLogo';
 import ContactPreferences from './components/ContactPreferences';
 import CareOptionsModal from './components/CareOptionsModal';
@@ -266,6 +267,7 @@ function AppContent() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/find-care" element={<FindCare />} />
             <Route path="/my-appointments" element={<MyAppointments />} />
+            <Route path="/emergency" element={<Emergency />} />
             <Route path="/policy/:id" element={<PolicyDetails />} />
             <Route path="/actions" element={<Actions />} />
             <Route path="/coverage-calculator" element={<CoverageCalculatorPage />} />
