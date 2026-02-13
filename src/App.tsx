@@ -124,7 +124,6 @@ function AppContent() {
                 sx={{
                   fontWeight: 500,
                   color: '#808285',
-                  fontFamily: '"Roboto Slab", serif',
                   fontSize: { xs: '1rem', sm: '1.25rem' },
                   whiteSpace: 'nowrap',
                 }}
