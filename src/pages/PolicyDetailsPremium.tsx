@@ -30,9 +30,11 @@ import {
   RequestQuote,
   Visibility,
   TrendingUp,
+  Payment,
 } from '@mui/icons-material';
 import type { Policy, Illustration } from '../types/policy';
 import { policyApi, illustrationApi } from '../services/mockApi';
+import AnnuityLoanPayoutRequest from '../components/AnnuityLoanPayoutRequest';
 
 const PolicyDetailsPremium = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,6 +42,7 @@ const PolicyDetailsPremium = () => {
   const [policy, setPolicy] = useState<Policy | null>(null);
   const [illustrations, setIllustrations] = useState<Illustration[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isLoanPayoutDialogOpen, setIsLoanPayoutDialogOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,6 +88,12 @@ const PolicyDetailsPremium = () => {
     // Redirect to external illustration UI
     const illustrationUrl = 'https://illustrations-ui.demo-1.hub-1.illus-dev.assure.dxc.com/index.html?type=UniversalLifeProducts&id=2a7254ac-93c8-45fa-b35e-a7ac079ceeac#/';
     window.open(illustrationUrl, '_blank');
+  };
+
+  const handleLoanPayoutRequest = (requestData: any) => {
+    console.log('Loan/Payout Request Submitted:', requestData);
+    // In real app, would submit to API
+    alert('Your loan/payout request has been submitted successfully! You will receive a confirmation email shortly.');
   };
 
   if (loading) {
@@ -179,7 +188,7 @@ const PolicyDetailsPremium = () => {
               </Stack>
             </Box>
 
-            {isLifePolicy && (
+            {isLifePolicy ? (
               <Button
                 variant="contained"
                 size="large"
@@ -196,7 +205,24 @@ const PolicyDetailsPremium = () => {
               >
                 Request Illustration
               </Button>
-            )}
+            ) : policy.type === 'annuity' ? (
+              <Button
+                variant="contained"
+                size="large"
+                startIcon={<Payment />}
+                onClick={() => setIsLoanPayoutDialogOpen(true)}
+                sx={{
+                  bgcolor: 'white',
+                  color: policyColor,
+                  fontWeight: 600,
+                  '&:hover': {
+                    bgcolor: 'rgba(255, 255, 255, 0.9)',
+                  },
+                }}
+              >
+                Request Loan/Withdrawal
+              </Button>
+            ) : null}
           </Box>
         </Container>
       </Box>
@@ -528,6 +554,27 @@ const PolicyDetailsPremium = () => {
             </Box>
           )}
       </Container>
+
+      {/* Annuity Loan/Payout Request Dialog */}
+      {policy.type === 'annuity' && (
+        <AnnuityLoanPayoutRequest
+          open={isLoanPayoutDialogOpen}
+          onClose={() => setIsLoanPayoutDialogOpen(false)}
+          annuityData={{
+            policyNumber: policy.policyNumber,
+            productName: policy.productName,
+            currentValue: policy.coverageAmount, // Using coverageAmount as proxy for account value
+            cashSurrenderValue: policy.coverageAmount * 0.95, // Assume 95% of account value
+            loanBalance: 0, // No existing loan
+            maxLoanAmount: policy.coverageAmount * 0.5, // Max 50% loan-to-value
+            surrenderChargePercent: 7, // 7% surrender charge
+            surrenderChargeYearsRemaining: 3, // 3 years remaining in surrender period
+            annualGrowthRate: 5.5, // Assumed 5.5% annual growth
+            age: 62, // Assumed age (would come from policy insured data in real app)
+          }}
+          onSubmit={handleLoanPayoutRequest}
+        />
+      )}
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   ThemeProvider,
   CssBaseline,
@@ -24,6 +24,7 @@ import Actions from './pages/Actions';
 import IllustrationDetails from './pages/IllustrationDetails';
 import BloomLogo from './components/BloomLogo';
 import ContactPreferences from './components/ContactPreferences';
+import { AnnualEnrollmentBanner } from './components/AnnouncementBanner';
 
 const Navigation = () => {
   const location = useLocation();
@@ -67,8 +68,10 @@ const Navigation = () => {
 };
 
 function AppContent() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isContactPreferencesOpen, setIsContactPreferencesOpen] = useState(false);
+  const [showAnnualEnrollmentBanner, setShowAnnualEnrollmentBanner] = useState(true);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -81,6 +84,22 @@ function AppContent() {
   const handleContactPreferencesOpen = () => {
     setIsContactPreferencesOpen(true);
     handleMenuClose();
+  };
+
+  const handleViewPolicy = () => {
+    // Navigate to first policy (in real app, would show policy selection or default policy)
+    navigate('/policy/life-001');
+  };
+
+  const handleWatchVideo = () => {
+    // Open video in new tab (in real app, would open video modal or player)
+    window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank');
+  };
+
+  const handleDismissBanner = () => {
+    setShowAnnualEnrollmentBanner(false);
+    // Store dismissal in localStorage so it persists
+    localStorage.setItem('annualEnrollmentBannerDismissed', 'true');
   };
 
   return (
@@ -148,6 +167,15 @@ function AppContent() {
           </Toolbar>
         </Container>
       </AppBar>
+
+      {/* Annual Enrollment Banner */}
+      {showAnnualEnrollmentBanner && (
+        <AnnualEnrollmentBanner
+          onViewPolicy={handleViewPolicy}
+          onWatchVideo={handleWatchVideo}
+          onDismiss={handleDismissBanner}
+        />
+      )}
 
       <Box component="main" sx={{ flex: 1, bgcolor: 'background.default' }}>
         <Routes>
