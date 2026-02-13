@@ -51,36 +51,30 @@ export const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: '"Roboto", "Roboto Slab", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontFamily: '"Roboto Slab", serif',
       fontSize: '3rem',
       fontWeight: 700,
       letterSpacing: '-0.02em',
     },
     h2: {
-      fontFamily: '"Roboto Slab", serif',
       fontSize: '2.25rem',
       fontWeight: 600,
       letterSpacing: '-0.01em',
     },
     h3: {
-      fontFamily: '"Roboto Slab", serif',
       fontSize: '1.75rem',
       fontWeight: 600,
     },
     h4: {
-      fontFamily: '"Roboto Slab", serif',
       fontSize: '1.5rem',
       fontWeight: 600,
     },
     h5: {
-      fontFamily: '"Roboto Slab", serif',
       fontSize: '1.25rem',
       fontWeight: 600,
     },
     h6: {
-      fontFamily: '"Roboto Slab", serif',
       fontSize: '1rem',
       fontWeight: 600,
     },

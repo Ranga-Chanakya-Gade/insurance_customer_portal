@@ -62,7 +62,7 @@ const Navigation = () => {
           pb: 0.5,
         }}
       >
-        Actions
+        To-Do
       </Button>
       <Button
         component={Link}
@@ -140,7 +140,6 @@ function AppContent() {
                 sx={{
                   fontWeight: 500,
                   color: '#808285',
-                  fontFamily: '"Roboto Slab", serif',
                 }}
               >
                 Bloom Insurance
