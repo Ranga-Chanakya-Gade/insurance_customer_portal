@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureLife Whole Life Premier — Bloom Insurance</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --dk: #0f4c75;
+    --dk2: #1B75BB;
+    --acc: #1B75BB;
+    --acc2: #00ADEE;
+    --orange: #F6921E;
+    --yellow: #E8DE23;
+    --lgreen: #8BC53F;
+    --green: #37A526;
+    --canvas: #F2F7F6;
+    --white: #ffffff;
+    --mid: #1a1a1a;
+    --t2: #808285;
+    --t3: #a8aaad;
+    --bdr: #e0e5e4;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    color: var(--mid);
+    background: #fff;
+    line-height: 1.5;
+  }
+
+  /* ── PAGE WRAPPER (print-like 8.5×11 feel) ── */
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #fff;
+  }
+
+  /* ── HEADER BAR ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    border-bottom: 1px solid var(--bdr);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo svg { width: 42px; height: 42px; }
+  .logo-text span:first-child { font-size: 22px; font-weight: 700; color: #333; }
+  .logo-text span:last-child  { font-size: 22px; font-weight: 400; color: #555; }
+  .header-tag {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--t2);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  /* ── HERO BAND ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 200px;
+  }
+  .hero-photo {
+    background: linear-gradient(135deg, var(--dk) 0%, var(--acc2) 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 0;
+  }
+  .hero-photo-inner {
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1511895426328-dc8714191011?w=600&q=80') center/cover no-repeat;
+    opacity: 0.55;
+    position: absolute; inset: 0;
+  }
+  .hero-photo-overlay {
+    position: relative;
+    z-index: 2;
+    padding: 28px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .hero-headline {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .hero-right {
+    background: var(--dk);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+  .hero-right h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .hero-right p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.6;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .hero-stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--acc2);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ── TWO-COLUMN CONTENT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .col-left  { padding: 28px 28px 28px 32px; }
+  .col-right { padding: 28px 32px 28px 28px; background: var(--canvas); }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--t2);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--dk);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .body-text {
+    font-size: 13px;
+    color: #3a3a3a;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .body-text strong {
+    color: var(--mid);
+    font-weight: 600;
+  }
+
+  /* ── BULLET LIST ── */
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 16px;
+  }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #3a3a3a;
+    line-height: 1.4;
+  }
+  .check-list li::before {
+    content: '▸';
+    color: var(--orange);
+    font-size: 12px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* ── CALLOUT QUOTE BOX ── */
+  .callout {
+    background: linear-gradient(135deg, #e0f0fc, #f5f9ff);
+    border: 1px solid #93bbfd;
+    border-left: 4px solid var(--acc);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 16px 0;
+  }
+  .callout p {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dk);
+    line-height: 1.5;
+  }
+  .callout .callout-sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--t2);
+    margin-top: 4px;
+  }
+
+  /* ── COVERAGE COST TABLE ── */
+  .coverage-section {
+    padding: 0 32px 28px;
+  }
+  .coverage-section .section-label { margin-bottom: 14px; }
+  .coverage-section .section-title { margin-bottom: 6px; }
+  .coverage-section .body-text     { margin-bottom: 18px; }
+
+  .coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cov-card {
+    background: var(--white);
+    border: 1px solid var(--bdr);
+    border-radius: 8px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .cov-amount {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--acc);
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .cov-sub {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--t3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .cov-divider {
+    height: 1px;
+    background: var(--bdr);
+    margin: 10px 0;
+  }
+  .cov-prem-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--t2);
+    margin-bottom: 2px;
+  }
+  .cov-prem {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .cov-note {
+    font-size: 10px;
+    color: var(--t3);
+    margin-top: 4px;
+  }
+
+  /* ── RIDERS SECTION ── */
+  .riders-section {
+    background: var(--canvas);
+    padding: 28px 32px;
+    border-top: 1px solid var(--bdr);
+  }
+  .riders-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .rider-card {
+    background: var(--white);
+    border: 1px solid var(--bdr);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .rider-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .rider-icon.blue   { background: #e0f0fc; }
+  .rider-icon.green  { background: #e6f5e0; }
+  .rider-icon.orange { background: #fff1e3; }
+  .rider-icon.yellow { background: #fefce8; }
+  .rider-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--mid);
+    margin-bottom: 4px;
+  }
+  .rider-card p {
+    font-size: 12px;
+    color: var(--t2);
+    line-height: 1.5;
+  }
+  .rider-pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-top: 6px;
+  }
+  .pill-free   { background: #e6f5e0; color: #2a7a1a; }
+  .pill-opt    { background: #e0f0fc; color: #1B75BB; }
+
+  /* ── CASE STUDY / SCENARIO ── */
+  .scenario-section {
+    padding: 28px 32px;
+    border-top: 1px solid var(--bdr);
+  }
+  .scenario-box {
+    background: linear-gradient(135deg, #fef7e6, #fefcf0);
+    border: 1px solid #f6c66a;
+    border-radius: 8px;
+    padding: 20px 22px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .scenario-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    background: var(--orange);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .scenario-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dk);
+    margin-bottom: 6px;
+  }
+  .scenario-box p {
+    font-size: 12px;
+    color: #3a3a3a;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .scenario-box .disclaim {
+    font-size: 10px;
+    color: var(--t3);
+    margin-top: 6px;
+    font-style: normal;
+  }
+
+  /* ── FAQ ── */
+  .faq-section {
+    padding: 28px 32px;
+    border-top: 1px solid var(--bdr);
+    background: var(--white);
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 16px;
+  }
+  .faq-item h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--acc);
+    margin-bottom: 5px;
+  }
+  .faq-item p {
+    font-size: 12px;
+    color: #3a3a3a;
+    line-height: 1.6;
+  }
+
+  /* ── ADVANTAGES BAND ── */
+  .advantages-band {
+    background: var(--dk);
+    padding: 24px 32px;
+  }
+  .advantages-band .section-label { color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+  .advantages-band .section-title { color: #fff; font-size: 16px; margin-bottom: 20px; }
+  .adv-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .adv-item {
+    text-align: center;
+  }
+  .adv-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .adv-item p {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 20px 32px;
+    border-top: 1px solid var(--bdr);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-left svg { width: 24px; height: 24px; }
+  .footer-left span {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--t2);
+  }
+  .footer-cta {
+    text-align: right;
+  }
+  .footer-cta a {
+    display: inline-block;
+    background: var(--acc);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  .footer-cta p {
+    font-size: 11px;
+    color: var(--t3);
+    margin-top: 6px;
+  }
+  .footer-disclaimer {
+    padding: 14px 32px;
+    border-top: 1px solid var(--bdr);
+  }
+  .footer-disclaimer p {
+    font-size: 10px;
+    color: var(--t3);
+    line-height: 1.6;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .page { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 16 C90 16,68 38,68 62 C68 78,78 90,100 100 C122 90,132 78,132 62 C132 38,110 16,100 16Z" fill="#00ADEE"/>
+        <path d="M184 100 C184 90,162 68,138 68 C122 68,110 78,100 100 C110 122,122 132,138 132 C162 132,184 110,184 100Z" fill="#37A526"/>
+        <path d="M100 184 C110 184,132 162,132 138 C132 122,122 110,100 100 C78 110,68 122,68 138 C68 162,90 184,100 184Z" fill="#8BC53F"/>
+        <path d="M16 100 C16 110,38 132,62 132 C78 132,90 122,100 100 C90 78,78 68,62 68 C38 68,16 90,16 100Z" fill="#1B75BB"/>
+        <path d="M156 20 C148 20,126 36,118 56 C112 70,114 84,100 100 C116 100,130 96,144 88 C160 78,170 54,168 42 C166 30,160 20,156 20Z" fill="#E8DE23"/>
+        <path d="M44 180 C52 180,74 164,82 144 C88 130,86 116,100 100 C84 100,70 104,56 112 C40 122,30 146,32 158 C34 170,40 180,44 180Z" fill="#F6921E"/>
+        <circle cx="100" cy="100" r="10" fill="#E8DE23"/>
+      </svg>
+      <div class="logo-text">
+        <span>Bloom</span> <span>Insurance</span>
+      </div>
+    </div>
+    <div class="header-tag">
+      Product Overview<br>
+      <span style="font-size:11px;font-weight:400;color:var(--t3);">Form BL-APP-1000 · Whole Life Insurance</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-photo">
+      <div class="hero-photo-inner"></div>
+      <div class="hero-photo-overlay">
+        <div class="hero-badge">Whole Life Insurance</div>
+        <div class="hero-headline">Growing your<br>financial security<br>since 1952.</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div>
+        <h2>Why whole life insurance matters</h2>
+        <p>Life insurance is one of the most powerful tools you can use to protect your family's future. Unlike term coverage, <strong style="color:#fff;">SecureLife Whole Life Premier</strong> builds guaranteed cash value over time while providing permanent, lifelong protection — no expiration date, no surprises.</p>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Lifetime</div>
+        <div class="hero-stat-label">Coverage guaranteed to age 100 — your policy never expires</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Tax-Free</div>
+        <div class="hero-stat-label">Death benefits paid income-tax-free to your named beneficiaries</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TWO-COLUMN: WHY + WHAT'S COVERED -->
+  <div class="two-col">
+    <div class="col-left">
+      <div class="section-label">Why it matters</div>
+      <div class="section-title">Protection your family can count on</div>
+      <p class="body-text">When the unexpected happens, your loved ones shouldn't have to worry about finances. SecureLife Whole Life Premier provides a guaranteed death benefit that helps your family cover immediate and long-term needs:</p>
+
+      <ul class="check-list">
+        <li>Mortgage or rent payments and household utilities</li>
+        <li>Childcare, education costs, and tuition</li>
+        <li>Outstanding debts and credit obligations</li>
+        <li>Final expenses and estate settlement costs</li>
+        <li>Income replacement for years into the future</li>
+        <li>Long-term financial security and peace of mind</li>
+      </ul>
+
+      <div class="callout">
+        <p>Experts recommend coverage equal to at least <strong>10–12× your annual income</strong> to adequately protect your household.</p>
+        <div class="callout-sub">Review your coverage regularly as your life circumstances change.</div>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <div class="section-label">What's included</div>
+      <div class="section-title">A policy built to grow with you</div>
+      <p class="body-text"><strong>Permanent whole life coverage</strong> means your policy is in force for your entire life — as long as premiums are paid — with no risk of losing coverage as you age or if your health changes.</p>
+      <p class="body-text"><strong>Guaranteed cash value accumulation</strong> begins from the first premium payment. Over time, you can borrow against this value or use it to supplement retirement income.</p>
+      <p class="body-text"><strong>Level premiums for life</strong> are locked in at issue. The rate you qualify for today is the rate you'll pay forever — your premium will never increase.</p>
+      <p class="body-text"><strong>Preferred underwriting class</strong> is available for eligible applicants in excellent health, delivering the most competitive rates Bloom has to offer.</p>
+    </div>
+  </div>
+
+  <!-- COVERAGE AMOUNTS -->
+  <div class="coverage-section">
+    <div class="section-label">Coverage options</div>
+    <div class="section-title">Choose the protection that fits your life</div>
+    <p class="body-text">SecureLife Whole Life Premier is available in a range of face amounts. Sample annual premiums below are based on a healthy male applicant aged 27, Preferred underwriting class.</p>
+
+    <div class="coverage-grid">
+      <div class="cov-card">
+        <div class="cov-amount">$150K</div>
+        <div class="cov-sub">in coverage</div>
+        <div class="cov-divider"></div>
+        <div class="cov-prem-label">Est. annual premium</div>
+        <div class="cov-prem">~$1,650</div>
+        <div class="cov-note">~$137/month · Preferred class</div>
+      </div>
+      <div class="cov-card" style="border-color: var(--acc); box-shadow: 0 0 0 1px var(--acc);">
+        <div style="font-size:9px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:4px;">Most Popular</div>
+        <div class="cov-amount">$350K</div>
+        <div class="cov-sub">in coverage</div>
+        <div class="cov-divider"></div>
+        <div class="cov-prem-label">Est. annual premium</div>
+        <div class="cov-prem">~$3,845</div>
+        <div class="cov-note">~$320/month · Preferred class</div>
+      </div>
+      <div class="cov-card">
+        <div class="cov-amount">$500K</div>
+        <div class="cov-sub">in coverage</div>
+        <div class="cov-divider"></div>
+        <div class="cov-prem-label">Est. annual premium</div>
+        <div class="cov-prem">~$5,490</div>
+        <div class="cov-note">~$457/month · Preferred class</div>
+      </div>
+    </div>
+
+    <div class="callout" style="background:linear-gradient(135deg,#e6f5e0,#f5fcf0);border-color:#93c48b;border-left-color:var(--green);">
+      <p style="color:#1a5c0f;">Premiums shown are illustrative estimates for a healthy 27-year-old male, non-tobacco, Preferred class. Your actual rate is determined during underwriting based on age, health, and coverage amount.</p>
+    </div>
+  </div>
+
+  <!-- RIDERS -->
+  <div class="riders-section">
+    <div class="section-label">Optional &amp; Included Riders</div>
+    <div class="section-title">Customize your protection</div>
+    <p class="body-text">Enhance your SecureLife policy with riders that address your specific needs — from protecting your premiums if you become disabled to locking in future insurability regardless of health changes.</p>
+
+    <div class="riders-grid">
+      <div class="rider-card">
+        <div class="rider-icon blue">💙</div>
+        <div>
+          <h4>Accelerated Death Benefit</h4>
+          <p>Access a portion of your death benefit early if diagnosed with a qualifying terminal illness. Provides financial flexibility when you need it most.</p>
+          <span class="rider-pill pill-free">Included at No Charge</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon green">🛡️</div>
+        <div>
+          <h4>Waiver of Premium</h4>
+          <p>If you become totally disabled and unable to work, your policy premiums are waived — keeping your coverage intact without any cost to you.</p>
+          <span class="rider-pill pill-opt">Optional · from $127/yr</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon orange">⚡</div>
+        <div>
+          <h4>Accidental Death Benefit</h4>
+          <p>Pays an additional death benefit — equal to the base face amount — if the insured dies as a result of a covered accident.</p>
+          <span class="rider-pill pill-opt">Optional Add-On</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon yellow">🌱</div>
+        <div>
+          <h4>Guaranteed Insurability Option</h4>
+          <p>Purchase additional coverage at specified future dates without providing new evidence of insurability — no matter how your health has changed.</p>
+          <span class="rider-pill pill-opt">Optional · from $89/yr</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon blue">👨‍👩‍👧</div>
+        <div>
+          <h4>Child Term Rider</h4>
+          <p>Provides term life coverage for your eligible children under one convenient rider. Coverage can often be converted to a permanent policy when the child reaches adulthood.</p>
+          <span class="rider-pill pill-opt">Optional Add-On</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon green">📈</div>
+        <div>
+          <h4>Cash Value Accumulation</h4>
+          <p>Built into every SecureLife policy — guaranteed cash value grows tax-deferred and can be accessed via policy loans or surrenders at any time.</p>
+          <span class="rider-pill pill-free">Included in Base Policy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO / LIFE EVENT -->
+  <div class="scenario-section">
+    <div class="section-label">Consider this life event</div>
+    <div style="margin-top:12px;">
+      <div class="scenario-box">
+        <div class="scenario-avatar">R</div>
+        <div>
+          <h4>Robert's story: Planning at 27 means security for a lifetime</h4>
+          <p>Robert was a 27-year-old financial analyst in good health when he applied for a SecureLife Whole Life Premier policy. By locking in his Preferred rate early, Robert secured $350,000 in permanent coverage with level premiums he'll pay for life. His Guaranteed Insurability rider means that when he eventually marries and starts a family, he can increase coverage — no medical questions asked. And with his Accelerated Death Benefit rider included at no charge, he has a financial safety net even in the event of a terminal diagnosis.</p>
+          <div class="disclaim">This is a representative illustration based on application data. Individual results will vary based on underwriting, age, and health classification.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="section-label">Frequently Asked Questions</div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h4>What is a beneficiary?</h4>
+        <p>Your beneficiary is the person — or persons — you designate to receive the death benefit proceeds. You may name multiple primary and contingent beneficiaries and update them at any time with a revocable designation.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How are claims paid?</h4>
+        <p>Upon the death of the insured, your named beneficiary files a claim with Bloom Insurance. A tax-free lump-sum payment is issued directly to the beneficiary — no income tax in most cases.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How much coverage do I need?</h4>
+        <p>Coverage needs vary by individual and change over time. As a general guideline, most financial professionals recommend at least 10× your gross annual income. Our licensed agents can help you calculate the right amount.</p>
+      </div>
+      <div class="faq-item">
+        <h4>I already have group life at work. Do I need more?</h4>
+        <p>Group term coverage through your employer is a valuable benefit, but it typically follows you only while employed and may not be sufficient to cover long-term obligations. Whole life provides permanent, portable protection you own outright.</p>
+      </div>
+      <div class="faq-item">
+        <h4>What is the cash value and when can I use it?</h4>
+        <p>Cash value accumulates within your policy tax-deferred from the day coverage begins. You may borrow against it at any time for any purpose — retirement income, a down payment, or emergencies — without surrendering your coverage.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Will my premiums ever increase?</h4>
+        <p>No. SecureLife Whole Life Premier features level premiums for the life of the policy. The rate established at issue is locked in permanently, regardless of age or any future changes in your health.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADVANTAGES BAND -->
+  <div class="advantages-band">
+    <div class="section-label">The Bloom advantage</div>
+    <div class="section-title">Why choose SecureLife Whole Life Premier</div>
+    <div class="adv-grid">
+      <div class="adv-item">
+        <div class="adv-icon">🔒</div>
+        <p>Permanent<br>Lifetime Coverage</p>
+      </div>
+      <div class="adv-item">
+        <div class="adv-icon">📊</div>
+        <p>Guaranteed<br>Cash Value Growth</p>
+      </div>
+      <div class="adv-item">
+        <div class="adv-icon">💰</div>
+        <p>Level Premiums<br>That Never Change</p>
+      </div>
+      <div class="adv-item">
+        <div class="adv-icon">✅</div>
+        <p>Tax-Free<br>Death Benefit</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 16 C90 16,68 38,68 62 C68 78,78 90,100 100 C122 90,132 78,132 62 C132 38,110 16,100 16Z" fill="#00ADEE"/>
+        <path d="M184 100 C184 90,162 68,138 68 C122 68,110 78,100 100 C110 122,122 132,138 132 C162 132,184 110,184 100Z" fill="#37A526"/>
+        <path d="M100 184 C110 184,132 162,132 138 C132 122,122 110,100 100 C78 110,68 122,68 138 C68 162,90 184,100 184Z" fill="#8BC53F"/>
+        <path d="M16 100 C16 110,38 132,62 132 C78 132,90 122,100 100 C90 78,78 68,62 68 C38 68,16 90,16 100Z" fill="#1B75BB"/>
+        <path d="M156 20 C148 20,126 36,118 56 C112 70,114 84,100 100 C116 100,130 96,144 88 C160 78,170 54,168 42 C166 30,160 20,156 20Z" fill="#E8DE23"/>
+        <path d="M44 180 C52 180,74 164,82 144 C88 130,86 116,100 100 C84 100,70 104,56 112 C40 122,30 146,32 158 C34 170,40 180,44 180Z" fill="#F6921E"/>
+        <circle cx="100" cy="100" r="10" fill="#E8DE23"/>
+      </svg>
+      <div>
+        <span style="display:block;font-size:13px;font-weight:700;color:var(--mid);">Bloom Insurance Company</span>
+        <span style="font-size:11px;color:var(--t3);">1200 Main Street · Hartford, CT 06103 · 1-800-BLOOM-01</span>
+      </div>
+    </div>
+    <div class="footer-cta">
+      <a href="https://www.bloominsurance.com">Apply at bloominsurance.com</a>
+      <p>Questions? Call your licensed Bloom agent today.</p>
+    </div>
+  </div>
+
+  <div class="footer-disclaimer">
+    <p>SecureLife Whole Life Premier (Form BL-APP-1000) is issued by Bloom Insurance Company, Hartford, CT. Policy and riders are subject to underwriting approval, state availability, and the terms and conditions of the policy contract. Premium amounts shown are representative estimates only; actual premiums depend on age, gender, health classification, and coverage amount determined at underwriting. Cash value accumulation is not guaranteed to equal premiums paid. Policy loans accrue interest and, if unpaid, reduce the death benefit. This material is for informational purposes only and does not constitute a contract of insurance. Please review your policy documents carefully. Bloom Insurance Company · "Growing Your Financial Security Since 1952."</p>
+  </div>
+
+</div>
+</body>
+</html>
