@@ -31,6 +31,8 @@ import {
   Visibility,
   TrendingUp,
   Payment,
+  PictureAsPdf,
+  PlayCircleOutline,
 } from '@mui/icons-material';
 import type { Policy, Illustration } from '../types/policy';
 import { policyApi, illustrationApi } from '../services/mockApi';
@@ -171,7 +173,7 @@ const PolicyDetailsPremium = () => {
         sx={{
           background: 'linear-gradient(135deg, #1B75BB 0%, #00ADEE 100%)',
           pt: 4,
-          pb: 8,
+          pb: { xs: 3, sm: 4, md: 8 },
         }}
       >
         <Container maxWidth="lg">
@@ -183,8 +185,17 @@ const PolicyDetailsPremium = () => {
             Back to Dashboard
           </Button>
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <Box>
+          {/* Title and Video Row */}
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-start',
+            gap: { xs: 2, md: 3 },
+            flexWrap: { xs: 'wrap', md: 'nowrap' },
+            pb: { xs: 2, md: 0 }
+          }}>
+            {/* Left Side - Policy Info */}
+            <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 }, mb: { xs: 2, md: 0 } }}>
               <Typography
                 variant="h3"
                 sx={{
@@ -199,7 +210,7 @@ const PolicyDetailsPremium = () => {
               <Typography variant="h6" sx={{ color: 'rgba(255, 255, 255, 0.9)', mb: 2 }}>
                 Policy Details
               </Typography>
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2} sx={{ mb: 3 }}>
                 <Chip
                   label={policy.policyNumber}
                   sx={{
@@ -218,48 +229,108 @@ const PolicyDetailsPremium = () => {
                   }}
                 />
               </Stack>
+
+              {/* Product Document Link and Button */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-start' }}>
+                <Box
+                  component="a"
+                  href="/bloom-securelife-product-overview.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 0.5,
+                    color: 'white',
+                    textDecoration: 'underline',
+                    fontSize: '0.95rem',
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    '&:hover': {
+                      color: 'rgba(255, 255, 255, 0.85)',
+                    },
+                  }}
+                >
+                  <PictureAsPdf sx={{ fontSize: 20 }} />
+                  Product Document
+                </Box>
+
+                {isLifePolicy ? (
+                  <Button
+                    variant="contained"
+                    startIcon={<RequestQuote fontSize="small" />}
+                    onClick={handleIllustrationRequest}
+                    sx={{
+                      bgcolor: 'white',
+                      color: policyColor,
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                      py: 0.5,
+                      px: 1.5,
+                      minHeight: 32,
+                      '&:hover': {
+                        bgcolor: 'rgba(255, 255, 255, 0.9)',
+                      },
+                    }}
+                  >
+                    Request Illustration
+                  </Button>
+                ) : policy.type === 'annuity' ? (
+                  <Button
+                    variant="contained"
+                    startIcon={<Payment fontSize="small" />}
+                    onClick={() => setIsLoanPayoutDialogOpen(true)}
+                    sx={{
+                      bgcolor: 'white',
+                      color: policyColor,
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                      py: 0.5,
+                      px: 1.5,
+                      minHeight: 32,
+                      '&:hover': {
+                        bgcolor: 'rgba(255, 255, 255, 0.9)',
+                      },
+                    }}
+                  >
+                    Request Loan/Withdrawal
+                  </Button>
+                ) : null}
+              </Box>
             </Box>
 
-            {isLifePolicy ? (
-              <Button
-                variant="contained"
-                size="large"
-                startIcon={<RequestQuote />}
-                onClick={handleIllustrationRequest}
-                sx={{
-                  bgcolor: 'white',
-                  color: policyColor,
-                  fontWeight: 600,
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.9)',
-                  },
+            {/* Right Side - Educational Video */}
+            <Box
+              sx={{
+                width: { xs: '100%', sm: 400, md: 320, lg: 350 },
+                maxWidth: { xs: '100%', sm: 400, md: 320, lg: 350 },
+                aspectRatio: '16 / 9',
+                borderRadius: 2,
+                overflow: 'hidden',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                border: '2px solid rgba(255, 255, 255, 0.2)',
+                mx: { xs: 'auto', md: 0 },
+                flexShrink: 0,
+                alignSelf: 'flex-start',
+              }}
+            >
+              <iframe
+                src="https://www.youtube.com/embed/5bhAKR9_R0Q?autoplay=1&mute=1&loop=1&playlist=5bhAKR9_R0Q"
+                title="Educational Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
                 }}
-              >
-                Request Illustration
-              </Button>
-            ) : policy.type === 'annuity' ? (
-              <Button
-                variant="contained"
-                size="large"
-                startIcon={<Payment />}
-                onClick={() => setIsLoanPayoutDialogOpen(true)}
-                sx={{
-                  bgcolor: 'white',
-                  color: policyColor,
-                  fontWeight: 600,
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.9)',
-                  },
-                }}
-              >
-                Request Loan/Withdrawal
-              </Button>
-            ) : null}
+              />
+            </Box>
           </Box>
         </Container>
       </Box>
 
-      <Container maxWidth="lg" sx={{ mt: -5, position: 'relative', zIndex: 2 }}>
+      <Container maxWidth="lg" sx={{ mt: { xs: 3, sm: 2, md: -4 }, position: 'relative', zIndex: 2 }}>
         {/* Coverage Summary Card */}
         <Paper
           elevation={0}
@@ -313,17 +384,6 @@ const PolicyDetailsPremium = () => {
             </Box>
           </Box>
         </Paper>
-
-        {/* Animated Policy Value Chart */}
-        {(policy.type === 'life' || policy.type === 'annuity') && (
-          <Box sx={{ mb: 4 }}>
-            <PolicyValueChart
-              policyType={policy.type}
-              data={policyValueData}
-              productName={policy.productName}
-            />
-          </Box>
-        )}
 
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
           {/* Policy Information */}
@@ -437,6 +497,17 @@ const PolicyDetailsPremium = () => {
             </Paper>
           </Box>
         </Box>
+
+        {/* Animated Policy Value Chart */}
+        {(policy.type === 'life' || policy.type === 'annuity') && (
+          <Box sx={{ mt: 3 }}>
+            <PolicyValueChart
+              policyType={policy.type}
+              data={policyValueData}
+              productName={policy.productName}
+            />
+          </Box>
+        )}
 
         {/* Beneficiaries */}
         {policy.beneficiaries && policy.beneficiaries.length > 0 && (
