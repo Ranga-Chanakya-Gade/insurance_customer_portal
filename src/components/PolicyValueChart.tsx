@@ -39,7 +39,8 @@ interface PolicyValueChartProps {
   productName: string;
 }
 
-const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
+const PolicyValueChart = ({ policyType, data, productName }: PolicyValueChartProps) => {
+  const isAnnuity = policyType === 'annuity';
   const [chartType, setChartType] = useState<'area' | 'line'>('area');
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>([
     'accountValue',
@@ -94,7 +95,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
           {dataPoint.premiumsPaid && (
             <Box sx={{ mt: 1, pt: 1, borderTop: '1px solid', borderColor: 'divider' }}>
               <Typography variant="caption" color="text.secondary">
-                Total Premiums Paid: {formatCurrency(dataPoint.premiumsPaid)}
+                {isAnnuity ? 'Total Contributions' : 'Total Premiums Paid'}: {formatCurrency(dataPoint.premiumsPaid)}
               </Typography>
             </Box>
           )}
@@ -116,7 +117,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
       strokeWidth: 2,
     },
     deathBenefit: {
-      label: 'Death Benefit',
+      label: isAnnuity ? 'Contract Value at Death' : 'Death Benefit',
       color: '#D02E2E',
       strokeWidth: 2,
     },
@@ -180,7 +181,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
         }}>
           <Box>
             <Typography variant="h5" fontWeight={700} gutterBottom>
-              Policy Value Projection
+              {isAnnuity ? 'Contract Value Projection' : 'Policy Value Projection'}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {productName} • {data.length} Year Projection
@@ -234,7 +235,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
           </Box>
           <Box>
             <Typography variant="caption" color="text.secondary">
-              Growth Rate
+              {isAnnuity ? 'Total Accumulation Since Issue' : 'Growth Rate'}
             </Typography>
             <Typography variant="h5" fontWeight={700} color="#000000">
               +{growthPercentage}%
@@ -300,7 +301,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
               <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
               <XAxis
                 dataKey="year"
-                label={{ value: 'Policy Year', position: 'insideBottom', offset: -5 }}
+                label={{ value: isAnnuity ? 'Contract Year' : 'Policy Year', position: 'insideBottom', offset: -5 }}
                 stroke="#666"
               />
               <YAxis
@@ -340,7 +341,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
                 <Area
                   type="monotone"
                   dataKey="deathBenefit"
-                  name="Death Benefit"
+                  name={isAnnuity ? 'Contract Value at Death' : 'Death Benefit'}
                   stroke={metricConfig.deathBenefit.color}
                   strokeWidth={metricConfig.deathBenefit.strokeWidth}
                   fill={`url(#colordeathBenefit)`}
@@ -375,7 +376,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
               <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
               <XAxis
                 dataKey="year"
-                label={{ value: 'Policy Year', position: 'insideBottom', offset: -5 }}
+                label={{ value: isAnnuity ? 'Contract Year' : 'Policy Year', position: 'insideBottom', offset: -5 }}
                 stroke="#666"
               />
               <YAxis
@@ -417,7 +418,7 @@ const PolicyValueChart = ({ data, productName }: PolicyValueChartProps) => {
                 <Line
                   type="monotone"
                   dataKey="deathBenefit"
-                  name="Death Benefit"
+                  name={isAnnuity ? 'Contract Value at Death' : 'Death Benefit'}
                   stroke={metricConfig.deathBenefit.color}
                   strokeWidth={metricConfig.deathBenefit.strokeWidth}
                   dot={{ r: 4 }}

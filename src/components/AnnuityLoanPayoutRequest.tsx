@@ -182,11 +182,11 @@ const AnnuityLoanPayoutRequest = ({
       }}
     >
       <DialogTitle>
-        <Typography variant="h5" fontWeight="600">
-          Annuity Loan or Withdrawal Request
+        <Typography variant="h5" fontWeight={600}>
+          Annuity Withdrawal Request
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-          {annuityData.productName} - {annuityData.policyNumber}
+          {annuityData.productName} — Contract {annuityData.policyNumber}
         </Typography>
       </DialogTitle>
 
@@ -200,16 +200,16 @@ const AnnuityLoanPayoutRequest = ({
         {tabValue === 0 && (
           <Stack spacing={3}>
             {/* Current Account Summary */}
-            <Paper elevation={0} sx={{ p: 2, bgcolor: 'grey.50', border: 1, borderColor: 'divider' }}>
-              <Typography variant="subtitle2" fontWeight="600" gutterBottom>
-                Current Account Summary
+            <Paper elevation={0} sx={{ p: 2, bgcolor: '#F8F9FA', border: 1, borderColor: 'divider' }}>
+              <Typography variant="subtitle2" fontWeight={600} gutterBottom>
+                Current Contract Summary
               </Typography>
               <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 2, mt: 1.5 }}>
                 <Box>
                   <Typography variant="caption" color="text.secondary">
-                    Account Value
+                    Contract Value
                   </Typography>
-                  <Typography variant="h6" fontWeight="600">
+                  <Typography variant="h6" fontWeight={600}>
                     ${annuityData.currentValue.toLocaleString()}
                   </Typography>
                 </Box>
@@ -217,7 +217,7 @@ const AnnuityLoanPayoutRequest = ({
                   <Typography variant="caption" color="text.secondary">
                     Cash Surrender Value
                   </Typography>
-                  <Typography variant="h6" fontWeight="600">
+                  <Typography variant="h6" fontWeight={600}>
                     ${annuityData.cashSurrenderValue.toLocaleString()}
                   </Typography>
                 </Box>
@@ -225,7 +225,7 @@ const AnnuityLoanPayoutRequest = ({
                   <Typography variant="caption" color="text.secondary">
                     Current Loan Balance
                   </Typography>
-                  <Typography variant="h6" fontWeight="600">
+                  <Typography variant="h6" fontWeight={600}>
                     ${annuityData.loanBalance.toLocaleString()}
                   </Typography>
                 </Box>
@@ -233,7 +233,7 @@ const AnnuityLoanPayoutRequest = ({
                   <Typography variant="caption" color="text.secondary">
                     Available Loan Amount
                   </Typography>
-                  <Typography variant="h6" fontWeight="600">
+                  <Typography variant="h6" fontWeight={600}>
                     ${(annuityData.maxLoanAmount - annuityData.loanBalance).toLocaleString()}
                   </Typography>
                 </Box>
@@ -268,11 +268,11 @@ const AnnuityLoanPayoutRequest = ({
                   control={<Radio />}
                   label={
                     <Box>
-                      <Typography variant="body2" fontWeight="500">
+                      <Typography variant="body2" fontWeight={500}>
                         Loan
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
-                        Borrow against your annuity value (subject to interest)
+                        Borrow against your contract value (subject to interest)
                       </Typography>
                     </Box>
                   }
@@ -283,7 +283,7 @@ const AnnuityLoanPayoutRequest = ({
             {/* Frequency */}
             <FormControl component="fieldset">
               <FormLabel component="legend" sx={{ fontWeight: 600, mb: 1 }}>
-                Payment Frequency
+                Withdrawal Frequency
               </FormLabel>
               <RadioGroup
                 value={frequency}
@@ -294,11 +294,11 @@ const AnnuityLoanPayoutRequest = ({
                   control={<Radio />}
                   label={
                     <Box>
-                      <Typography variant="body2" fontWeight="500">
-                        One-Time Payment
+                      <Typography variant="body2" fontWeight={500}>
+                        One-Time Withdrawal
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
-                        Receive a single lump sum payment
+                        Receive a single lump-sum withdrawal
                       </Typography>
                     </Box>
                   }
@@ -308,11 +308,11 @@ const AnnuityLoanPayoutRequest = ({
                   control={<Radio />}
                   label={
                     <Box>
-                      <Typography variant="body2" fontWeight="500">
+                      <Typography variant="body2" fontWeight={500}>
                         Systematic Withdrawals
                       </Typography>
                       <Typography variant="caption" color="text.secondary">
-                        Set up recurring payments from your annuity
+                        Set up recurring withdrawals from your contract
                       </Typography>
                     </Box>
                   }
@@ -476,8 +476,8 @@ const AnnuityLoanPayoutRequest = ({
 
             {/* Loan Impact */}
             {requestType === 'loan' && illustration.loanImpact && (
-              <Paper elevation={0} sx={{ p: 2, bgcolor: 'warning.50', border: 1, borderColor: 'warning.main' }}>
-                <Typography variant="subtitle2" fontWeight="600" gutterBottom>
+              <Paper elevation={0} sx={{ p: 2, bgcolor: '#F6921E0D', border: '1px solid #F6921E4D' }}>
+                <Typography variant="subtitle2" fontWeight={600} gutterBottom>
                   Loan Impact
                 </Typography>
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2, mt: 1.5 }}>
@@ -485,7 +485,7 @@ const AnnuityLoanPayoutRequest = ({
                     <Typography variant="caption" color="text.secondary">
                       Annual Interest (5%)
                     </Typography>
-                    <Typography variant="body1" fontWeight="600">
+                    <Typography variant="body1" fontWeight={600}>
                       ${illustration.loanImpact.annualInterest.toLocaleString()}
                     </Typography>
                   </Box>
@@ -493,15 +493,15 @@ const AnnuityLoanPayoutRequest = ({
                     <Typography variant="caption" color="text.secondary">
                       Projected Balance ({projectionYears} yrs)
                     </Typography>
-                    <Typography variant="body1" fontWeight="600">
+                    <Typography variant="body1" fontWeight={600}>
                       ${illustration.loanImpact.outstandingBalance.toLocaleString()}
                     </Typography>
                   </Box>
                   <Box>
                     <Typography variant="caption" color="text.secondary">
-                      Reduced Death Benefit
+                      Reduced Contract Value at Death
                     </Typography>
-                    <Typography variant="body1" fontWeight="600">
+                    <Typography variant="body1" fontWeight={600}>
                       ${illustration.loanImpact.reducedDeathBenefit.toLocaleString()}
                     </Typography>
                   </Box>
@@ -527,19 +527,19 @@ const AnnuityLoanPayoutRequest = ({
 
             {/* Future Projections Table */}
             <Box>
-              <Typography variant="subtitle2" fontWeight="600" gutterBottom>
-                Projected Account Value
+              <Typography variant="subtitle2" fontWeight={600} gutterBottom>
+                Projected Contract Value
               </Typography>
               <TableContainer component={Paper} elevation={0} sx={{ border: 1, borderColor: 'divider', maxHeight: 300 }}>
                 <Table size="small" stickyHeader>
                   <TableHead>
                     <TableRow>
                       <TableCell><strong>Year</strong></TableCell>
-                      <TableCell align="right"><strong>Account Value</strong></TableCell>
+                      <TableCell align="right"><strong>Contract Value</strong></TableCell>
                       {frequency === 'systematic' && (
                         <TableCell align="right"><strong>Annual Withdrawals</strong></TableCell>
                       )}
-                      <TableCell align="right"><strong>Growth Rate</strong></TableCell>
+                      <TableCell align="right"><strong>Crediting Rate</strong></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -558,8 +558,7 @@ const AnnuityLoanPayoutRequest = ({
                           <Chip
                             label={`${annuityData.annualGrowthRate}%`}
                             size="small"
-                            variant="outlined"
-                            sx={{ color: '#000000', borderColor: '#37A5264D', bgcolor: '#37A52620', fontWeight: 600 }}
+                            sx={{ color: '#000000', border: '1px solid #37A5264D', bgcolor: '#37A52620', fontWeight: 600 }}
                           />
                         </TableCell>
                       </TableRow>
@@ -573,13 +572,14 @@ const AnnuityLoanPayoutRequest = ({
       </DialogContent>
 
       <DialogActions sx={{ px: 3, pb: 2 }}>
-        <Button onClick={onClose} color="inherit">
+        <Button onClick={onClose} sx={{ color: '#1B75BB' }}>
           Cancel
         </Button>
         <Button
           onClick={handleSubmit}
           variant="contained"
           disabled={!isValidAmount && frequency === 'one-time'}
+          sx={{ bgcolor: '#1B75BB', '&:hover': { bgcolor: '#155f99' }, minHeight: 44 }}
         >
           Submit Request
         </Button>

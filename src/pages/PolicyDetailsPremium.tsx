@@ -215,7 +215,7 @@ const PolicyDetailsPremium = () => {
                 {policy.productName}
               </Typography>
               <Typography variant="h6" sx={{ color: 'rgba(255, 255, 255, 0.9)', mb: 2 }}>
-                Policy Details
+                {policy.type === 'annuity' ? 'Contract Details' : 'Policy Details'}
               </Typography>
               <Stack direction="row" spacing={2} sx={{ mb: 3 }}>
                 <Chip
@@ -228,11 +228,13 @@ const PolicyDetailsPremium = () => {
                   }}
                 />
                 <Chip
-                  label={policy.status.toUpperCase()}
+                  label={policy.type === 'annuity' && policy.status === 'active' ? 'Accumulation Phase' : policy.status.toUpperCase()}
                   icon={<Security sx={{ color: 'white !important' }} />}
                   sx={{
                     bgcolor: 'rgba(255, 255, 255, 0.2)',
                     color: 'white',
+                    fontWeight: 600,
+                    fontSize: policy.type === 'annuity' ? '0.7rem' : undefined,
                   }}
                 />
               </Stack>
@@ -241,7 +243,7 @@ const PolicyDetailsPremium = () => {
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'flex-start' }}>
                 <Box
                   component="a"
-                  href="/bloom-securelife-product-overview.html"
+                  href={policy.type === 'annuity' ? '/bloom-securegrowth-fia-overview.html' : '/bloom-securelife-product-overview.html'}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
@@ -300,7 +302,7 @@ const PolicyDetailsPremium = () => {
                       },
                     }}
                   >
-                    Request Loan/Withdrawal
+                    Request Withdrawal
                   </Button>
                 ) : null}
               </Box>
@@ -362,7 +364,7 @@ const PolicyDetailsPremium = () => {
               </Avatar>
               <Box>
                 <Typography variant="body2" color="text.secondary">
-                  Coverage Amount
+                  {policy.type === 'annuity' ? 'Contract Value' : 'Coverage Amount'}
                 </Typography>
                 <Typography variant="h4" fontWeight={700} color="#000000">
                   {formatCurrency(policy.coverageAmount)}
@@ -375,7 +377,7 @@ const PolicyDetailsPremium = () => {
               </Avatar>
               <Box>
                 <Typography variant="body2" color="text.secondary">
-                  {policy.paymentFrequency.charAt(0).toUpperCase() + policy.paymentFrequency.slice(1)} Premium
+                  {policy.type === 'annuity' ? 'Contribution Schedule' : `${policy.paymentFrequency.charAt(0).toUpperCase() + policy.paymentFrequency.slice(1)} Premium`}
                 </Typography>
                 <Typography variant="h4" fontWeight={700} color="#000000">
                   {formatCurrency(policy.premium)}
@@ -388,7 +390,7 @@ const PolicyDetailsPremium = () => {
               </Avatar>
               <Box>
                 <Typography variant="body2" color="text.secondary">
-                  Next Payment
+                  {policy.type === 'annuity' ? 'Next Crediting Date' : 'Next Payment'}
                 </Typography>
                 <Typography variant="h6" fontWeight={700} color="#000000">
                   {formatDate(policy.nextPaymentDate)}
@@ -404,7 +406,7 @@ const PolicyDetailsPremium = () => {
             <Paper sx={{ p: 3, borderRadius: 3, height: '100%' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                 <Typography variant="h6" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
-                  Policy Information
+                  {policy.type === 'annuity' ? 'Contract Information' : 'Policy Information'}
                 </Typography>
                 <Tooltip title="Edit Policy">
                   <IconButton size="small">
@@ -433,15 +435,15 @@ const PolicyDetailsPremium = () => {
                 )}
                 <Box>
                   <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                    Policy Type
+                    {policy.type === 'annuity' ? 'Product Type' : 'Policy Type'}
                   </Typography>
                   <Typography variant="body1" fontWeight={600}>
-                    {policy.type.charAt(0).toUpperCase() + policy.type.slice(1)}
+                    {policy.type === 'annuity' ? 'Fixed Indexed Annuity' : policy.type.charAt(0).toUpperCase() + policy.type.slice(1)}
                   </Typography>
                 </Box>
                 <Box>
                   <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                    Payment Frequency
+                    {policy.type === 'annuity' ? 'Contribution Schedule' : 'Payment Frequency'}
                   </Typography>
                   <Typography variant="body1" fontWeight={600}>
                     {policy.paymentFrequency.charAt(0).toUpperCase() + policy.paymentFrequency.slice(1)}
@@ -456,7 +458,7 @@ const PolicyDetailsPremium = () => {
             <Paper sx={{ p: 3, borderRadius: 3, height: '100%' }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                 <Typography variant="h6" fontWeight={700} sx={{ fontFamily: 'inherit' }}>
-                  Insured Information
+                  {policy.type === 'annuity' ? 'Owner / Annuitant Information' : 'Insured Information'}
                 </Typography>
                 <Tooltip title="Edit Contact">
                   <IconButton size="small">
@@ -467,7 +469,7 @@ const PolicyDetailsPremium = () => {
               <Stack spacing={2.5} divider={<Divider />}>
                 <Box>
                   <Typography variant="caption" color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                    Name
+                    {policy.type === 'annuity' ? 'Annuitant' : 'Name'}
                   </Typography>
                   <Typography variant="body1" fontWeight={600}>
                     {policy.insured.firstName} {policy.insured.lastName}
