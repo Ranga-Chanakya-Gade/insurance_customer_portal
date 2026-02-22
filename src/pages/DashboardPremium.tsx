@@ -395,12 +395,20 @@ const Dashboard = () => {
                               {getPolicyIcon(policy.type)}
                             </Box>
                           </Avatar>
-                          <Chip
-                            label={policy.status.toUpperCase()}
-                            size="small"
-                            icon={<CheckCircle sx={{ fontSize: 16, color: '#000000 !important' }} />}
-                            sx={{ fontWeight: 600, color: '#000000', ...getStatusChipSx(policy.status) }}
-                          />
+                          {policy.type === 'annuity' && policy.status === 'active' ? (
+                            <Chip
+                              label="Accumulation Phase"
+                              size="small"
+                              sx={{ fontWeight: 600, color: '#000000', fontSize: '0.65rem', ...getStatusChipSx(policy.status) }}
+                            />
+                          ) : (
+                            <Chip
+                              label={policy.status.toUpperCase()}
+                              size="small"
+                              icon={<CheckCircle sx={{ fontSize: 16, color: '#000000 !important' }} />}
+                              sx={{ fontWeight: 600, color: '#000000', ...getStatusChipSx(policy.status) }}
+                            />
+                          )}
                         </Box>
 
                         <Typography variant="h6" fontWeight={700} gutterBottom sx={{ mb: 1 }}>
@@ -417,7 +425,7 @@ const Dashboard = () => {
                             mb: 3,
                           }}
                         >
-                          {policy.policyNumber}
+                          {policy.type === 'annuity' ? 'Contract' : 'Policy'} #{policy.policyNumber}
                         </Typography>
 
                         <Divider sx={{ my: 2 }} />
@@ -425,7 +433,7 @@ const Dashboard = () => {
                         <Stack spacing={2}>
                           <Box>
                             <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                              Coverage Amount
+                              {policy.type === 'annuity' ? 'Current Contract Value' : 'Coverage Amount'}
                             </Typography>
                             <Typography variant="h6" fontWeight={700} color="#000000">
                               {formatCurrency(policy.coverageAmount)}
@@ -435,7 +443,7 @@ const Dashboard = () => {
                           <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2 }}>
                             <Box>
                               <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
-                                Premium
+                                {policy.type === 'annuity' ? 'Contribution' : 'Premium'}
                               </Typography>
                               <Typography variant="body2" fontWeight={600}>
                                 {formatCurrency(policy.premium)}
@@ -443,7 +451,7 @@ const Dashboard = () => {
                             </Box>
                             <Box>
                               <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
-                                Next Payment
+                                {policy.type === 'annuity' ? 'Crediting Date' : 'Next Payment'}
                               </Typography>
                               <Typography variant="body2" fontWeight={600}>
                                 {formatDate(policy.nextPaymentDate)}

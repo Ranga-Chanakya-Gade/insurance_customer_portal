@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureGrowth Fixed Indexed Annuity — Bloom Insurance</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --dk: #0f4c75;
+    --dk2: #1B75BB;
+    --acc: #1B75BB;
+    --acc2: #00ADEE;
+    --orange: #F6921E;
+    --yellow: #E8DE23;
+    --lgreen: #8BC53F;
+    --green: #37A526;
+    --canvas: #F2F7F6;
+    --white: #ffffff;
+    --mid: #1a1a1a;
+    --t2: #808285;
+    --t3: #a8aaad;
+    --bdr: #e0e5e4;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    color: var(--mid);
+    background: #fff;
+    line-height: 1.5;
+  }
+
+  /* ── PAGE WRAPPER (print-like 8.5×11 feel) ── */
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #fff;
+  }
+
+  /* ── HEADER BAR ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    border-bottom: 1px solid var(--bdr);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo svg { width: 42px; height: 42px; }
+  .logo-text span:first-child { font-size: 22px; font-weight: 700; color: #333; }
+  .logo-text span:last-child  { font-size: 22px; font-weight: 400; color: #555; }
+  .header-tag {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--t2);
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    text-align: right;
+  }
+
+  /* ── HERO BAND ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 200px;
+  }
+  .hero-photo {
+    background: linear-gradient(135deg, var(--dk) 0%, var(--acc2) 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 0;
+  }
+  .hero-photo-inner {
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80') center/cover no-repeat;
+    opacity: 0.55;
+    position: absolute; inset: 0;
+  }
+  .hero-photo-overlay {
+    position: relative;
+    z-index: 2;
+    padding: 28px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .hero-headline {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.25;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+  .hero-right {
+    background: var(--dk);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+  .hero-right h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .hero-right p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.6;
+  }
+  .hero-stat {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .hero-stat-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--acc2);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+  }
+  .hero-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .hero-stats-row .hero-stat {
+    padding: 12px 10px;
+  }
+  .hero-stats-row .hero-stat-num {
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+
+  /* ── PRODUCT PHASE INDICATOR ── */
+  .phase-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--bdr);
+  }
+  .phase-item {
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .phase-item:first-child {
+    border-right: 1px solid var(--bdr);
+  }
+  .phase-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .phase-icon.acc { background: #e0f0fc; }
+  .phase-icon.inc { background: #e6f5e0; }
+  .phase-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--t2);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 2px;
+  }
+  .phase-desc {
+    font-size: 12px;
+    color: #3a3a3a;
+    line-height: 1.4;
+  }
+
+  /* ── SURRENDER SCHEDULE TABLE ── */
+  .surrender-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 0;
+    font-size: 12px;
+  }
+  .surrender-table th {
+    background: var(--dk);
+    color: #fff;
+    padding: 8px 10px;
+    font-weight: 600;
+    font-size: 11px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .surrender-table td {
+    padding: 7px 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--bdr);
+    color: #3a3a3a;
+    font-weight: 500;
+  }
+  .surrender-table tr:nth-child(even) td {
+    background: #f8fafa;
+  }
+
+  /* ── TWO-COLUMN CONTENT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .col-left  { padding: 28px 28px 28px 32px; }
+  .col-right { padding: 28px 32px 28px 28px; background: var(--canvas); }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--t2);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--dk);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .body-text {
+    font-size: 13px;
+    color: #3a3a3a;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .body-text strong {
+    color: var(--mid);
+    font-weight: 600;
+  }
+
+  /* ── BULLET LIST ── */
+  .check-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 16px;
+  }
+  .check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #3a3a3a;
+    line-height: 1.4;
+  }
+  .check-list li::before {
+    content: '▸';
+    color: var(--orange);
+    font-size: 12px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* ── CALLOUT QUOTE BOX ── */
+  .callout {
+    background: linear-gradient(135deg, #e0f0fc, #f5f9ff);
+    border: 1px solid #93bbfd;
+    border-left: 4px solid var(--acc);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin: 16px 0;
+  }
+  .callout p {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dk);
+    line-height: 1.5;
+  }
+  .callout .callout-sub {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--t2);
+    margin-top: 4px;
+  }
+
+  /* ── PREMIUM & ALLOCATION SECTION ── */
+  .coverage-section {
+    padding: 0 32px 28px;
+  }
+  .coverage-section .section-label { margin-bottom: 14px; }
+  .coverage-section .section-title { margin-bottom: 6px; }
+  .coverage-section .body-text     { margin-bottom: 18px; }
+
+  .coverage-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .cov-card {
+    background: var(--white);
+    border: 1px solid var(--bdr);
+    border-radius: 8px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .cov-amount {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--acc);
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .cov-sub {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--t3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .cov-divider {
+    height: 1px;
+    background: var(--bdr);
+    margin: 10px 0;
+  }
+  .cov-prem-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--t2);
+    margin-bottom: 2px;
+  }
+  .cov-prem {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .cov-note {
+    font-size: 10px;
+    color: var(--t3);
+    margin-top: 4px;
+  }
+  .cov-detail {
+    font-size: 11px;
+    color: #3a3a3a;
+    line-height: 1.5;
+    margin-top: 6px;
+    text-align: left;
+  }
+
+  /* ── RIDERS SECTION ── */
+  .riders-section {
+    background: var(--canvas);
+    padding: 28px 32px;
+    border-top: 1px solid var(--bdr);
+  }
+  .riders-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .rider-card {
+    background: var(--white);
+    border: 1px solid var(--bdr);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .rider-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .rider-icon.blue   { background: #e0f0fc; }
+  .rider-icon.green  { background: #e6f5e0; }
+  .rider-icon.orange { background: #fff1e3; }
+  .rider-icon.yellow { background: #fefce8; }
+  .rider-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--mid);
+    margin-bottom: 4px;
+  }
+  .rider-card p {
+    font-size: 12px;
+    color: var(--t2);
+    line-height: 1.5;
+  }
+  .rider-pill {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-top: 6px;
+  }
+  .pill-free   { background: #e6f5e0; color: #2a7a1a; }
+  .pill-opt    { background: #e0f0fc; color: #1B75BB; }
+  .pill-fee    { background: #fefce8; color: #8a6d00; }
+
+  /* ── CASE STUDY / SCENARIO ── */
+  .scenario-section {
+    padding: 28px 32px;
+    border-top: 1px solid var(--bdr);
+  }
+  .scenario-box {
+    background: linear-gradient(135deg, #fef7e6, #fefcf0);
+    border: 1px solid #f6c66a;
+    border-radius: 8px;
+    padding: 20px 22px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .scenario-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    background: var(--orange);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .scenario-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dk);
+    margin-bottom: 6px;
+  }
+  .scenario-box p {
+    font-size: 12px;
+    color: #3a3a3a;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .scenario-box .disclaim {
+    font-size: 10px;
+    color: var(--t3);
+    margin-top: 6px;
+    font-style: normal;
+  }
+  .scenario-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .scenario-hl {
+    background: #fff;
+    border: 1px solid #f0dda0;
+    border-radius: 6px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .scenario-hl-num {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--dk);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .scenario-hl-label {
+    font-size: 10px;
+    color: var(--t2);
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  /* ── FAQ ── */
+  .faq-section {
+    padding: 28px 32px;
+    border-top: 1px solid var(--bdr);
+    background: var(--white);
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 16px;
+  }
+  .faq-item h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--acc);
+    margin-bottom: 5px;
+  }
+  .faq-item p {
+    font-size: 12px;
+    color: #3a3a3a;
+    line-height: 1.6;
+  }
+
+  /* ── ADVANTAGES BAND ── */
+  .advantages-band {
+    background: var(--dk);
+    padding: 24px 32px;
+  }
+  .advantages-band .section-label { color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+  .advantages-band .section-title { color: #fff; font-size: 16px; margin-bottom: 20px; }
+  .adv-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .adv-item {
+    text-align: center;
+  }
+  .adv-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  .adv-item p {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 20px 32px;
+    border-top: 1px solid var(--bdr);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer-left svg { width: 24px; height: 24px; }
+  .footer-left span {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--t2);
+  }
+  .footer-cta {
+    text-align: right;
+  }
+  .footer-cta a {
+    display: inline-block;
+    background: var(--acc);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+  }
+  .footer-cta p {
+    font-size: 11px;
+    color: var(--t3);
+    margin-top: 6px;
+  }
+  .footer-disclaimer {
+    padding: 14px 32px;
+    border-top: 1px solid var(--bdr);
+  }
+  .footer-disclaimer p {
+    font-size: 10px;
+    color: var(--t3);
+    line-height: 1.6;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .page { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 16 C90 16,68 38,68 62 C68 78,78 90,100 100 C122 90,132 78,132 62 C132 38,110 16,100 16Z" fill="#00ADEE"/>
+        <path d="M184 100 C184 90,162 68,138 68 C122 68,110 78,100 100 C110 122,122 132,138 132 C162 132,184 110,184 100Z" fill="#37A526"/>
+        <path d="M100 184 C110 184,132 162,132 138 C132 122,122 110,100 100 C78 110,68 122,68 138 C68 162,90 184,100 184Z" fill="#8BC53F"/>
+        <path d="M16 100 C16 110,38 132,62 132 C78 132,90 122,100 100 C90 78,78 68,62 68 C38 68,16 90,16 100Z" fill="#1B75BB"/>
+        <path d="M156 20 C148 20,126 36,118 56 C112 70,114 84,100 100 C116 100,130 96,144 88 C160 78,170 54,168 42 C166 30,160 20,156 20Z" fill="#E8DE23"/>
+        <path d="M44 180 C52 180,74 164,82 144 C88 130,86 116,100 100 C84 100,70 104,56 112 C40 122,30 146,32 158 C34 170,40 180,44 180Z" fill="#F6921E"/>
+        <circle cx="100" cy="100" r="10" fill="#E8DE23"/>
+      </svg>
+      <div class="logo-text">
+        <span>Bloom</span> <span>Insurance</span>
+      </div>
+    </div>
+    <div class="header-tag">
+      Product Overview<br>
+      <span style="font-size:11px;font-weight:400;color:var(--t3);">Form BL-FIA-2000 · Fixed Indexed Annuity</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-photo">
+      <div class="hero-photo-inner"></div>
+      <div class="hero-photo-overlay">
+        <div class="hero-badge">Fixed Indexed Annuity</div>
+        <div class="hero-headline">Grow your<br>retirement income<br>with confidence.</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div>
+        <h2>Why a fixed indexed annuity matters</h2>
+        <p>A fixed indexed annuity gives you the opportunity to grow your retirement savings with market-linked returns — while protecting your principal from downside loss. <strong style="color:#fff;">SecureGrowth Fixed Indexed Annuity</strong> combines tax-deferred accumulation with the option for guaranteed lifetime income, giving you stability and growth in one contract.</p>
+      </div>
+      <div class="hero-stats-row">
+        <div class="hero-stat">
+          <div class="hero-stat-num">0%</div>
+          <div class="hero-stat-label">Floor — your contract value never loses to market downturns</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">Tax-Deferred</div>
+          <div class="hero-stat-label">Growth compounds without annual taxation until withdrawal</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">Income</div>
+          <div class="hero-stat-label">Optional guaranteed lifetime income rider available</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT PHASE INDICATOR -->
+  <div class="phase-bar">
+    <div class="phase-item">
+      <div class="phase-icon acc">📈</div>
+      <div>
+        <div class="phase-label">Accumulation Phase</div>
+        <div class="phase-desc">Your contract value grows through index-linked crediting and fixed interest, protected by a 0% floor. Tax-deferred compounding maximizes growth potential.</div>
+      </div>
+    </div>
+    <div class="phase-item">
+      <div class="phase-icon inc">💵</div>
+      <div>
+        <div class="phase-label">Income Phase</div>
+        <div class="phase-desc">When you're ready, elect guaranteed lifetime withdrawals through the optional income rider — providing predictable income you can't outlive.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SURRENDER SCHEDULE -->
+  <div style="padding: 20px 32px 0;">
+    <div class="section-label">Surrender Charge Schedule</div>
+    <p class="body-text" style="margin-bottom:6px;">Early withdrawals in excess of the free withdrawal allowance are subject to the following declining surrender charges:</p>
+    <table class="surrender-table">
+      <tr>
+        <th>Year 1</th><th>Year 2</th><th>Year 3</th><th>Year 4</th><th>Year 5</th><th>Year 6</th><th>Year 7</th><th>Year 8</th><th>Year 9</th><th>Year 10</th>
+      </tr>
+      <tr>
+        <td>9%</td><td>9%</td><td>8%</td><td>7%</td><td>6%</td><td>5%</td><td>4%</td><td>3%</td><td>2%</td><td>1%</td>
+      </tr>
+    </table>
+    <p style="font-size:10px;color:var(--t3);margin-top:6px;">Free withdrawal allowance: Up to 10% of contract value annually without surrender charges. After the surrender period, full liquidity with no charges applies.</p>
+  </div>
+
+  <!-- TWO-COLUMN: WHY + WHAT'S INCLUDED -->
+  <div class="two-col">
+    <div class="col-left">
+      <div class="section-label">Why it matters</div>
+      <div class="section-title">Stability your retirement can count on</div>
+      <p class="body-text">Market volatility, rising costs, and longer lifespans make retirement planning more complex than ever. SecureGrowth Fixed Indexed Annuity is designed to address the key risks retirees face:</p>
+
+      <ul class="check-list">
+        <li>Protecting retirement savings from market loss with a 0% floor</li>
+        <li>Creating guaranteed lifetime income you can't outlive</li>
+        <li>Supplementing Social Security and pension income</li>
+        <li>Tax-deferred growth that compounds without annual drag</li>
+        <li>Protection against sequence-of-returns risk in early retirement</li>
+        <li>Preserving principal for legacy or long-term care needs</li>
+      </ul>
+
+      <div class="callout">
+        <p>A fixed indexed annuity can serve as the <strong>stable foundation</strong> of a diversified retirement income plan — protecting what you've saved while still participating in market growth.</p>
+        <div class="callout-sub">Consult your financial professional to determine how an FIA fits your overall retirement strategy.</div>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <div class="section-label">What's included</div>
+      <div class="section-title">A contract designed for retirement confidence</div>
+      <p class="body-text"><strong>Principal protection with a 0% floor</strong> means your contract value will never decrease due to negative index performance. In years when the linked index declines, your credited interest is simply zero — never negative.</p>
+      <p class="body-text"><strong>Tax-deferred accumulation</strong> allows your interest credits to compound without being reduced by annual taxes, maximizing growth potential throughout the accumulation phase.</p>
+      <p class="body-text"><strong>Multiple crediting strategies</strong> let you allocate your premium across fixed and index-linked options based on your goals, risk tolerance, and market outlook.</p>
+      <p class="body-text"><strong>No medical underwriting required.</strong> Approval is based on suitability — not your health. There are no exams, labs, or health questions to qualify for this contract.</p>
+    </div>
+  </div>
+
+  <!-- PREMIUM & ALLOCATION OPTIONS -->
+  <div class="coverage-section">
+    <div class="section-label">Investment &amp; Allocation Options</div>
+    <div class="section-title">Choose the crediting strategies that fit your goals</div>
+    <p class="body-text">SecureGrowth Fixed Indexed Annuity accepts a single premium starting at $25,000. Allocate your premium across one or more of the following crediting strategies — you may reallocate annually on your contract anniversary.</p>
+
+    <div class="coverage-grid">
+      <div class="cov-card">
+        <div class="cov-amount">Fixed</div>
+        <div class="cov-sub">Account</div>
+        <div class="cov-divider"></div>
+        <div class="cov-prem-label">Guaranteed Rate</div>
+        <div class="cov-prem">3.25%</div>
+        <div class="cov-detail">A declared fixed interest rate guaranteed for one year and renewable annually. Minimum guaranteed rate: 1.00%. Ideal for conservative allocations.</div>
+      </div>
+      <div class="cov-card" style="border-color: var(--acc); box-shadow: 0 0 0 1px var(--acc);">
+        <div style="font-size:9px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:4px;">Most Popular</div>
+        <div class="cov-amount">S&P 500</div>
+        <div class="cov-sub">Annual Point-to-Point</div>
+        <div class="cov-divider"></div>
+        <div class="cov-prem-label">Current Cap Rate</div>
+        <div class="cov-prem">8.50%</div>
+        <div class="cov-detail">Credited interest based on S&P 500 annual performance up to the declared cap. 0% floor protects against loss. Cap rate subject to change at renewal.</div>
+      </div>
+      <div class="cov-card">
+        <div class="cov-amount">S&P 500</div>
+        <div class="cov-sub">Participation Rate Strategy</div>
+        <div class="cov-divider"></div>
+        <div class="cov-prem-label">Participation Rate</div>
+        <div class="cov-prem">45%</div>
+        <div class="cov-detail">You receive a percentage of the S&P 500 annual gain with no cap. In strong market years, this strategy may outperform the cap-based option. 0% floor applies.</div>
+      </div>
+    </div>
+
+    <div class="callout" style="background:linear-gradient(135deg,#e6f5e0,#f5fcf0);border-color:#93c48b;border-left-color:var(--green);">
+      <p style="color:#1a5c0f;">Minimum single premium: $25,000. Maximum premium limits may apply based on your state of residence and age at issue. Cap rates, participation rates, and spreads are declared by Bloom Insurance and are subject to change at each contract anniversary. The S&P 500 index is a price return index; dividends are not included in credited interest calculations.</p>
+    </div>
+  </div>
+
+  <!-- RIDERS -->
+  <div class="riders-section">
+    <div class="section-label">Optional &amp; Included Riders</div>
+    <div class="section-title">Customize your retirement income plan</div>
+    <p class="body-text">Enhance your SecureGrowth annuity with riders that add guaranteed income, legacy protection, and flexibility — tailored to your specific retirement needs.</p>
+
+    <div class="riders-grid">
+      <div class="rider-card">
+        <div class="rider-icon blue">💵</div>
+        <div>
+          <h4>Guaranteed Lifetime Withdrawal Benefit (GLWB)</h4>
+          <p>Provides a guaranteed annual withdrawal amount for life, regardless of contract value performance. Withdrawal percentages are based on age at first withdrawal (e.g., 5.5% at age 65). Benefit base grows at a guaranteed rollup rate during the deferral period.</p>
+          <span class="rider-pill pill-fee">Optional · 0.95% of benefit base/yr</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon green">👫</div>
+        <div>
+          <h4>Joint Lifetime Income Option</h4>
+          <p>Available as an add-on to the GLWB rider, this option extends guaranteed lifetime income to cover both the owner and a spouse. Payments continue for the lifetime of the surviving spouse at a slightly reduced withdrawal rate.</p>
+          <span class="rider-pill pill-fee">Optional · Included with GLWB election</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon orange">🏥</div>
+        <div>
+          <h4>Nursing Home / Confinement Rider</h4>
+          <p>Waives surrender charges and allows full access to contract value if the owner is confined to a qualified nursing facility or long-term care facility for 90 or more consecutive days.</p>
+          <span class="rider-pill pill-free">Included at No Charge</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon yellow">🩺</div>
+        <div>
+          <h4>Terminal Illness Rider</h4>
+          <p>Waives surrender charges and provides full access to contract value upon diagnosis of a terminal illness with a life expectancy of 12 months or less. Allows penalty-free access when you need it most.</p>
+          <span class="rider-pill pill-free">Included at No Charge</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon blue">📈</div>
+        <div>
+          <h4>Enhanced Death Benefit Rider</h4>
+          <p>Guarantees that the death benefit paid to your beneficiary will equal the greater of the current contract value or the highest anniversary value recorded during the contract term — locking in growth for legacy planning.</p>
+          <span class="rider-pill pill-fee">Optional · 0.25% of contract value/yr</span>
+        </div>
+      </div>
+
+      <div class="rider-card">
+        <div class="rider-icon green">🔄</div>
+        <div>
+          <h4>Return of Premium Death Benefit</h4>
+          <p>Guarantees that the death benefit payable to beneficiaries will never be less than the total premium paid, minus any prior withdrawals — ensuring principal is preserved for your heirs regardless of market performance.</p>
+          <span class="rider-pill pill-free">Included in Base Contract</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO / RETIREMENT PLANNING -->
+  <div class="scenario-section">
+    <div class="section-label">Consider this retirement scenario</div>
+    <div style="margin-top:12px;">
+      <div class="scenario-box">
+        <div class="scenario-avatar">M</div>
+        <div>
+          <h4>Margaret's story: Building guaranteed retirement income with principal protection</h4>
+          <p>Margaret, age 60, recently rolled $250,000 from her 401(k) into a SecureGrowth Fixed Indexed Annuity. She allocated 60% to the S&P 500 Annual Point-to-Point strategy and 40% to the Fixed Account. Over 10 years, her contract value grew through index-linked credits while being fully protected from market downturns by the 0% floor. At age 70, Margaret elected her Guaranteed Lifetime Withdrawal Benefit, locking in an annual income of $16,500 per year — guaranteed for as long as she lives, regardless of future market performance. Her remaining contract value continues to participate in index-linked growth.</p>
+          <div class="scenario-highlights">
+            <div class="scenario-hl">
+              <div class="scenario-hl-num">$250K</div>
+              <div class="scenario-hl-label">Single Premium</div>
+            </div>
+            <div class="scenario-hl">
+              <div class="scenario-hl-num">10 yrs</div>
+              <div class="scenario-hl-label">Accumulation Period</div>
+            </div>
+            <div class="scenario-hl">
+              <div class="scenario-hl-num">$16,500</div>
+              <div class="scenario-hl-label">Annual Income for Life</div>
+            </div>
+          </div>
+          <div class="disclaim">This is a hypothetical illustration and does not represent actual contract performance. Actual results will vary based on index performance, crediting rates in effect, rider elections, and timing of withdrawals. Past index performance is not indicative of future results.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="section-label">Frequently Asked Questions</div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h4>What is a Fixed Indexed Annuity?</h4>
+        <p>A fixed indexed annuity is an insurance contract that credits interest based on the performance of a market index (such as the S&P 500) while protecting your principal from market losses. Your contract value can grow when the index performs well, but can never decline due to negative index performance thanks to the 0% floor.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How does index crediting work?</h4>
+        <p>Interest is credited annually based on the change in the selected market index over each contract year. Depending on your chosen strategy, gains are subject to a cap rate, participation rate, or spread. If the index declines, no interest is credited (0%), but your contract value is never reduced. You are not directly invested in the index.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Is my principal protected?</h4>
+        <p>Yes. Your initial premium is protected from market-related loss. The 0% floor means that in any contract year where the linked index has negative performance, your credited interest for that year is zero — your contract value does not decrease. Note that withdrawals and rider fees will reduce contract value.</p>
+      </div>
+      <div class="faq-item">
+        <h4>What is a surrender charge?</h4>
+        <p>A surrender charge is a declining fee applied to withdrawals that exceed the annual free withdrawal allowance (10% of contract value) during the surrender period. The charge schedule starts at 9% in year one and declines to 0% after year ten. After the surrender period, your full contract value is available without penalty.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How does the income rider work?</h4>
+        <p>The optional Guaranteed Lifetime Withdrawal Benefit (GLWB) rider provides a guaranteed annual withdrawal for life once activated. Your benefit base — which determines your income amount — grows at a guaranteed rollup rate during the deferral period. The longer you defer, the higher your guaranteed income. Rider fees of 0.95% are deducted annually from contract value.</p>
+      </div>
+      <div class="faq-item">
+        <h4>What happens if I die during the surrender period?</h4>
+        <p>Your named beneficiary will receive the death benefit — typically the greater of the current contract value or the total premiums paid minus withdrawals. Surrender charges are waived at death. If the Enhanced Death Benefit Rider is elected, the benefit equals the highest anniversary value recorded.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Are gains taxed annually?</h4>
+        <p>No. Interest credited to your annuity contract grows tax-deferred — you do not owe income tax on gains until you take withdrawals. For non-qualified contracts, withdrawals are taxed on a last-in, first-out (LIFO) basis, meaning gains are withdrawn and taxed first. Withdrawals prior to age 59½ may be subject to a 10% IRS penalty.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Can I add more money after the initial premium?</h4>
+        <p>SecureGrowth Fixed Indexed Annuity is a single-premium product. Additional deposits are not accepted after the initial premium is applied. If you have additional funds to allocate, your Bloom agent can help you evaluate a second contract or other suitable options within your retirement plan.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADVANTAGES BAND -->
+  <div class="advantages-band">
+    <div class="section-label">The Bloom advantage</div>
+    <div class="section-title">Why choose SecureGrowth Fixed Indexed Annuity</div>
+    <div class="adv-grid">
+      <div class="adv-item">
+        <div class="adv-icon">🛡️</div>
+        <p>Downside Protection<br>0% Floor</p>
+      </div>
+      <div class="adv-item">
+        <div class="adv-icon">📊</div>
+        <p>Tax-Deferred<br>Growth</p>
+      </div>
+      <div class="adv-item">
+        <div class="adv-icon">💰</div>
+        <p>Optional Guaranteed<br>Lifetime Income</p>
+      </div>
+      <div class="adv-item">
+        <div class="adv-icon">📈</div>
+        <p>Market-Linked<br>Growth Potential</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path d="M100 16 C90 16,68 38,68 62 C68 78,78 90,100 100 C122 90,132 78,132 62 C132 38,110 16,100 16Z" fill="#00ADEE"/>
+        <path d="M184 100 C184 90,162 68,138 68 C122 68,110 78,100 100 C110 122,122 132,138 132 C162 132,184 110,184 100Z" fill="#37A526"/>
+        <path d="M100 184 C110 184,132 162,132 138 C132 122,122 110,100 100 C78 110,68 122,68 138 C68 162,90 184,100 184Z" fill="#8BC53F"/>
+        <path d="M16 100 C16 110,38 132,62 132 C78 132,90 122,100 100 C90 78,78 68,62 68 C38 68,16 90,16 100Z" fill="#1B75BB"/>
+        <path d="M156 20 C148 20,126 36,118 56 C112 70,114 84,100 100 C116 100,130 96,144 88 C160 78,170 54,168 42 C166 30,160 20,156 20Z" fill="#E8DE23"/>
+        <path d="M44 180 C52 180,74 164,82 144 C88 130,86 116,100 100 C84 100,70 104,56 112 C40 122,30 146,32 158 C34 170,40 180,44 180Z" fill="#F6921E"/>
+        <circle cx="100" cy="100" r="10" fill="#E8DE23"/>
+      </svg>
+      <div>
+        <span style="display:block;font-size:13px;font-weight:700;color:var(--mid);">Bloom Insurance Company</span>
+        <span style="font-size:11px;color:var(--t3);">1200 Main Street · Hartford, CT 06103 · 1-800-BLOOM-01</span>
+      </div>
+    </div>
+    <div class="footer-cta">
+      <a href="https://www.bloominsurance.com">Learn more at bloominsurance.com</a>
+      <p>Questions? Call your licensed Bloom agent today.</p>
+    </div>
+  </div>
+
+  <div class="footer-disclaimer">
+    <p>SecureGrowth Fixed Indexed Annuity (Form BL-FIA-2000) is issued by Bloom Insurance Company, Hartford, CT. This product is a fixed annuity contract and is not a security or investment in the stock market. The S&P 500® Index is a product of S&P Dow Jones Indices LLC and has been licensed for use by Bloom Insurance Company; S&P® is a registered trademark of Standard & Poor's Financial Services LLC. The contract owner is not directly invested in any index or market. Interest crediting is subject to cap rates, participation rates, and spreads that are declared by Bloom Insurance and are subject to change at each contract anniversary. The minimum guaranteed crediting rate is 0% for index strategies and 1.00% for the fixed account. Surrender charges apply to withdrawals exceeding the 10% annual free withdrawal allowance during the first 10 contract years. Withdrawals may be subject to ordinary income tax and, if taken before age 59½, a 10% federal tax penalty. For non-qualified contracts, withdrawals are taxed on a LIFO basis (gains first). Rider fees are deducted from contract value and will reduce the amount available for withdrawal, income, or death benefit unless otherwise specified. Guarantees are backed by the claims-paying ability and financial strength of Bloom Insurance Company and are not guaranteed by any bank or government agency. This material is for informational purposes only and does not constitute an annuity contract. Please review your contract and disclosure documents carefully. Bloom Insurance Company · "Growing Your Financial Security Since 1952."</p>
+  </div>
+
+</div>
+</body>
+</html>
